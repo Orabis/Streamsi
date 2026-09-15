@@ -1,9 +1,7 @@
 import './style.css'
-import { io } from "socket.io-client";
+import { socket } from './services.ts'
 
-const socket = io("http://localhost:3000", {
-    reconnectionDelayMax: 10000,
-});
+const formTest = document.getElementById("form") as HTMLFormElement;
 
 async function postData(formData: FormData) {
     const url = "http://localhost:3000/videos-upload"
@@ -16,18 +14,17 @@ async function postData(formData: FormData) {
             throw new Error(`Response status: ${response.status}`)
         }
         const result = await response.json()
-        socket.emit("message", "New video !")
+        socket.emit("newChat", {"text": formData.get("name"), "videoName": result.videoName})
         console.log(result)
-    } catch (error:any) {
-        console.error(error.message)
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error("Erreur lors de la lecture :", error.message);
+        }
     }
 }
-const formTest = document.getElementById("form") as HTMLFormElement;
 
 formTest.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(formTest)
     await postData(formData)
-
-
 })
