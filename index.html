@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Socket.IO chat</title>
+  <title>LiveChatFou</title>
 </head>
 <body>
 <form id="form">
-  <label for="name">Username</label>
-  <input name="name" id="name" autocomplete="off" />
-  <label for="video">video</label>
-  <input type="file" id="video" name="video">
-  <button type="submit">Send</button>
+  <label for="name">Text a envoyer</label>
+  <input name="name" id="name" autocomplete="off" maxlength="30" required />
+  <label for="video">Video</label>
+  <input type="file" id="video" name="video" accept="video/*" required/>
+  <button type="submit">Submit</button>
 </form>
 <script type="module" src="/src/main.ts"></script>
 </body>

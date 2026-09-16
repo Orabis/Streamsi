@@ -8,10 +8,13 @@ async function postData(formData: FormData) {
     try {
         const response = await fetch(url, {
             method: "POST",
+            headers: {
+                'Authorization': '' // TODO: Faire modale pour mettre le token
+            },
             body: formData,
         })
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`)
+            return response
         }
         const result = await response.json()
         socket.emit("newChat", {"text": formData.get("name"), "videoName": result.videoName})
