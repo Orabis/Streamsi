@@ -9,7 +9,7 @@ if (AuthToken !== null && AuthToken.trim() !== '') {
 }
 
 async function postData(formData: FormData) {
-    const url = "http://localhost:3000/videos-upload"
+    const url = `${import.meta.env.VITE_BACKEND_URL}/videos-upload`
     try {
         const response = await fetch(url, {
             method: "POST",

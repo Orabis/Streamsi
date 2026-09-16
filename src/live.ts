@@ -11,7 +11,7 @@ interface Video {
 
 async function getVideo(video: Video) {
     try {
-        const baseUrl = "http://localhost:3000/videos/" + video.videoName
+        const baseUrl = `${import.meta.env.VITE_BACKEND_URL}/videos/` + video.videoName
         const response = await fetch(baseUrl, {
             method: "GET",
             headers: {
