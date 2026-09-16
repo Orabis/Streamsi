@@ -1,6 +1,8 @@
-import { socket } from './services.ts'
+import { socket, login } from './services.ts'
 
 const app = document.getElementById("app") as HTMLDivElement
+
+const urlParams = new URLSearchParams(window.location.search);
 
 interface Video {
     videoName: string,
@@ -12,6 +14,9 @@ async function getVideo(video: Video) {
         const baseUrl = "http://localhost:3000/videos/" + video.videoName
         const response = await fetch(baseUrl, {
             method: "GET",
+            headers: {
+                'Authorization': urlParams.get("token") ?? "",
+            },
         })
         if (!response.ok) {
             return
@@ -47,6 +52,7 @@ async function handleVideo(url: string, videoText: string) {
         text.remove()
     }, {once: true})
 }
+login(urlParams.get("token") ?? "")
 
 socket.on("sendChat", async (data) => {
     console.log("Chat reçu", data.videoName, data.text)

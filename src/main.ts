@@ -1,7 +1,12 @@
 import './style.css'
-import { socket } from './services.ts'
+import { socket, login } from './services.ts'
 
 const formTest = document.getElementById("form") as HTMLFormElement;
+const AuthToken  = prompt('Enter Auth Token');
+
+if (AuthToken !== null && AuthToken.trim() !== '') {
+    sessionStorage.setItem("AuthToken", AuthToken);
+}
 
 async function postData(formData: FormData) {
     const url = "http://localhost:3000/videos-upload"
@@ -9,7 +14,7 @@ async function postData(formData: FormData) {
         const response = await fetch(url, {
             method: "POST",
             headers: {
-                'Authorization': '' // TODO: Faire modale pour mettre le token
+                'Authorization': sessionStorage.getItem("AuthToken") ?? ""
             },
             body: formData,
         })
@@ -17,6 +22,8 @@ async function postData(formData: FormData) {
             return response
         }
         const result = await response.json()
+        login(sessionStorage.getItem("AuthToken") ?? "")
+        console.log(sessionStorage.getItem("AuthToken") ?? "")
         socket.emit("newChat", {"text": formData.get("name"), "videoName": result.videoName})
         console.log(result)
     } catch (error: unknown) {

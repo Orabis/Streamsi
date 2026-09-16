@@ -5,12 +5,17 @@
   <title>LiveChatFou</title>
 </head>
 <body>
+<h1>LiveChatFou</h1>
 <form id="form">
-  <label for="name">Text a envoyer</label>
-  <input name="name" id="name" autocomplete="off" maxlength="30" required />
-  <label for="video">Video</label>
-  <input type="file" id="video" name="video" accept="video/*" required/>
-  <button type="submit">Submit</button>
+  <label>
+    Texte :
+    <input name="name" id="name" autocomplete="off" maxlength="30" required />
+  </label>
+  <label>
+    Video :
+    <input type="file" id="video" name="video" accept="video/*" required/>
+  </label>
+  <button type="submit">ENVOIE</button>
 </form>
 <script type="module" src="/src/main.ts"></script>
 </body>
